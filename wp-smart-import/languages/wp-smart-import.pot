@@ -1,0 +1,477 @@
+# Copyright (C) 2021 WP Smart Import
+# This file is distributed under the same license as the WP Smart Import package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Smart Import 1.0.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-smart-import\n"
+"POT-Creation-Date: 2021-11-30 14:12:42+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Domain: wp-smart-import\n"
+
+#: includes/admin_ajax.php:179 includes/admin_ajax.php:199
+msgid "<strong>%s</strong> %s more"
+msgstr ""
+
+#: includes/admin_ajax.php:179 includes/admin_ajax.php:199
+msgid "element"
+msgid_plural "elements"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin_ajax.php:205
+msgid "more"
+msgstr ""
+
+#: views/admin/default.php:4 views/admin/manage_file.php:3
+#: views/admin/manage_import.php:3
+msgid "Wp Smart Import"
+msgstr ""
+
+#: views/admin/default.php:5
+msgid "Import XML"
+msgstr ""
+
+#: views/admin/files/delete.php:24 views/admin/files/delete.php:105
+#: views/admin/manage/delete.php:35 views/admin/manage/delete.php:127
+msgid "Delete"
+msgstr ""
+
+#: views/admin/files/delete.php:30
+msgid "Deleted Record"
+msgstr ""
+
+#: views/admin/files/delete.php:34 views/admin/files/delete.php:64
+#: views/admin/manage/delete.php:55 views/admin/manage/delete.php:83
+#: views/admin/manage/update.php:71
+msgid "File Name"
+msgstr ""
+
+#: views/admin/files/delete.php:35
+msgid "file"
+msgstr ""
+
+#: views/admin/files/delete.php:36
+msgid "Import"
+msgstr ""
+
+#: views/admin/files/delete.php:37
+msgid "Post"
+msgstr ""
+
+#: views/admin/files/delete.php:51
+msgid "File Data"
+msgstr ""
+
+#: views/admin/files/delete.php:52 views/admin/manage/delete.php:75
+msgid "Id : "
+msgstr ""
+
+#: views/admin/files/delete.php:60 views/admin/manage/delete.php:52
+#: views/admin/manage/delete.php:80 views/admin/manage/update.php:68
+msgid "ID"
+msgstr ""
+
+#: views/admin/files/delete.php:68 views/admin/manage/delete.php:58
+#: views/admin/manage/delete.php:86
+msgid "File Path"
+msgstr ""
+
+#: views/admin/files/delete.php:81 views/admin/manage/delete.php:104
+msgid "Options"
+msgstr ""
+
+#: views/admin/files/delete.php:87
+msgid "Delete File Record Only ( File will not show in existing file list )"
+msgstr ""
+
+#: views/admin/files/delete.php:91
+msgid "Delete All Imports Created by File"
+msgstr ""
+
+#: views/admin/files/delete.php:95
+msgid "Delete All Post Created by File"
+msgstr ""
+
+#: views/admin/files/delete.php:99
+msgid "Delete All Imports and Post Created by File"
+msgstr ""
+
+#: views/admin/import/element.php:4
+msgid "<h1> No Data Found </h1>"
+msgstr ""
+
+#: views/admin/import/element.php:25
+msgid "Elements"
+msgstr ""
+
+#: views/admin/import/element.php:30 views/admin/import/template/content.php:8
+msgid "Upload New File"
+msgstr ""
+
+#: views/admin/import/element.php:39
+msgid "Select XML element you want to import"
+msgstr ""
+
+#: views/admin/import/element.php:55
+msgid "<< Previous Step 1"
+msgstr ""
+
+#: views/admin/import/element.php:58
+msgid "Next Step 3 >>"
+msgstr ""
+
+#: views/admin/import/index.php:9
+msgid "Upload File"
+msgstr ""
+
+#: views/admin/import/index.php:16
+msgid "Download From URL"
+msgstr ""
+
+#: views/admin/import/index.php:22
+msgid "Select Existing File"
+msgstr ""
+
+#: views/admin/import/index.php:33
+msgid "Download"
+msgstr ""
+
+#: views/admin/import/index.php:41
+msgid "Select File"
+msgstr ""
+
+#: views/admin/import/index.php:71
+msgid "New Items"
+msgstr ""
+
+#: views/admin/import/index.php:76
+msgid "Create New"
+msgstr ""
+
+#: views/admin/import/index.php:97
+msgid "Use this file in Future"
+msgstr ""
+
+#: views/admin/import/index.php:104
+msgid "Check Name Exist"
+msgstr ""
+
+#: views/admin/import/index.php:112
+msgid "Next Step 2 >>"
+msgstr ""
+
+#: views/admin/import/template/content.php:4
+msgid "Content"
+msgstr ""
+
+#: views/admin/import/template/content.php:14
+msgid "NOTE : Drag and Drop node element for input"
+msgstr ""
+
+#: views/admin/import/template/content.php:20
+msgid "Post title"
+msgstr ""
+
+#: views/admin/import/template/content.php:23
+msgid "Enter title here.."
+msgstr ""
+
+#: views/admin/import/template/content.php:27
+msgid "Description"
+msgstr ""
+
+#: views/admin/import/template/content.php:30
+msgid "Enter description here.."
+msgstr ""
+
+#: views/admin/import/template/content.php:34 views/admin/manage/update.php:86
+msgid "Post Status"
+msgstr ""
+
+#: views/admin/import/template/content.php:37
+msgid "Published"
+msgstr ""
+
+#: views/admin/import/template/content.php:40
+msgid "Pending review"
+msgstr ""
+
+#: views/admin/import/template/content.php:43
+msgid "Draft"
+msgstr ""
+
+#: views/admin/import/template/content.php:48
+msgid "Post author"
+msgstr ""
+
+#: views/admin/import/template/custom_fields.php:4
+msgid "Custom Fields"
+msgstr ""
+
+#: views/admin/import/template/custom_fields.php:11
+#: views/admin/manage/update.php:129
+msgid "Key"
+msgstr ""
+
+#: views/admin/import/template/custom_fields.php:12
+#: views/admin/manage/update.php:65 views/admin/manage/update.php:130
+msgid "Value"
+msgstr ""
+
+#: views/admin/import/template/custom_fields.php:13
+msgid "Action"
+msgstr ""
+
+#: views/admin/import/template/custom_fields.php:53
+msgid "Add Custom Field"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:5
+msgid "Images Import"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:10
+#: views/admin/templates/image_preview.php:45
+msgid "Image Preview"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:16
+msgid "Use images currently in Media Library"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:23
+msgid "Enter image filenames one per line, or separate them with a <b class=\"imp-text \">( , )</b> seperate"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:27
+msgid "Download images hosted elsewhere"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:33
+msgid "Enter image filenames one per line, or separate them with a <b class=\"imp-text \">( , )</b> seperate "
+msgstr ""
+
+#: views/admin/import/template/images_import.php:40
+msgid "Image Options"
+msgstr ""
+
+#: views/admin/import/template/images_import.php:43
+msgid "Set the first image to the Featured Image (_thumbnail_id)"
+msgstr ""
+
+#: views/admin/import/template/options.php:11
+msgid "Set Post Password"
+msgstr ""
+
+#: views/admin/import/template/options.php:21
+msgid "Comment Status  :"
+msgstr ""
+
+#: views/admin/import/template/options.php:24
+#: views/admin/import/template/options.php:84
+msgid "Open"
+msgstr ""
+
+#: views/admin/import/template/options.php:27
+#: views/admin/import/template/options.php:87
+msgid "Closed"
+msgstr ""
+
+#: views/admin/import/template/options.php:35
+msgid "Set Date  :"
+msgstr ""
+
+#: views/admin/import/template/options.php:41 views/admin/manage/update.php:97
+msgid "Auto"
+msgstr ""
+
+#: views/admin/import/template/options.php:44
+msgid "As specified"
+msgstr ""
+
+#: views/admin/import/template/options.php:53
+msgid "Random Date"
+msgstr ""
+
+#: views/admin/import/template/options.php:71
+msgid "Menu Order :"
+msgstr ""
+
+#: views/admin/import/template/options.php:81
+msgid "Trackbacks and Pingbacks : "
+msgstr ""
+
+#: views/admin/import/template/options.php:92
+msgid "Default slug is the sanitized post title when creating a new post."
+msgstr ""
+
+#: views/admin/import/template/options.php:92
+msgid "Slug : "
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:10
+msgid "Taxonomies , Category , Tags :"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:37
+msgid "List of "
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:46
+msgid "NOTE : Seperate with"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:47
+msgid "( , )"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:53
+msgid "All"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:68
+msgid "Save"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:76
+msgid "Posts have hierarchical (parent/child) Categories (i.e. Sports > Golf > Clubs > Putters)"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:104
+msgid "NOTE : Seperate with <b class='imp-text'>( > )</b>"
+msgstr ""
+
+#: views/admin/import/template/tax_cat_tag.php:109
+msgid "+ Add Another Hierarchy Group"
+msgstr ""
+
+#: views/admin/import/template/unique_key.php:5
+msgid "Unique key"
+msgstr ""
+
+#: views/admin/import/template/unique_key.php:10
+msgid "Unique key field is use to find post for retrive, update or delete operation and identify uniquely. In this field xPath will not work"
+msgstr ""
+
+#: views/admin/import/template.php:25 views/admin/manage_file.php:12
+#: views/admin/manage_import.php:11
+msgid "Dismiss this notice."
+msgstr ""
+
+#: views/admin/import/template.php:66
+msgid "Save Import"
+msgstr ""
+
+#: views/admin/import/template.php:67
+msgid "Save and Run Import"
+msgstr ""
+
+#: views/admin/manage/delete.php:47 views/admin/manage/update.php:58
+msgid "Import Data"
+msgstr ""
+
+#: views/admin/manage/delete.php:61 views/admin/manage/delete.php:89
+#: views/admin/manage/update.php:77
+msgid "Unique Key"
+msgstr ""
+
+#: views/admin/manage/delete.php:64 views/admin/manage/delete.php:92
+#: views/admin/manage/update.php:115
+msgid "Post Type"
+msgstr ""
+
+#: views/admin/manage/delete.php:110
+msgid "Delete Import"
+msgstr ""
+
+#: views/admin/manage/update.php:29 views/admin/manage/update.php:49
+msgid "Run Import"
+msgstr ""
+
+#: views/admin/manage/update.php:37
+msgid "Edit Import"
+msgstr ""
+
+#: views/admin/manage/update.php:40 views/admin/manage_import.php:4
+msgid "Manage Import"
+msgstr ""
+
+#: views/admin/manage/update.php:46
+msgid "File is Ready to import Click on below button and Run import"
+msgstr ""
+
+#: views/admin/manage/update.php:64
+msgid "Field"
+msgstr ""
+
+#: views/admin/manage/update.php:74
+msgid "Root Element"
+msgstr ""
+
+#: views/admin/manage/update.php:80
+msgid "Post Title"
+msgstr ""
+
+#: views/admin/manage/update.php:83
+msgid "Post Description"
+msgstr ""
+
+#: views/admin/manage/update.php:89
+msgid "Post Author"
+msgstr ""
+
+#: views/admin/manage/update.php:93
+msgid "Post Date"
+msgstr ""
+
+#: views/admin/manage/update.php:106
+msgid "Media Images"
+msgstr ""
+
+#: views/admin/manage/update.php:109
+msgid "Download Images"
+msgstr ""
+
+#: views/admin/manage/update.php:112
+msgid "Set Featured Image"
+msgstr ""
+
+#: views/admin/manage/update.php:118
+msgid "Last Activity"
+msgstr ""
+
+#: views/admin/manage_file.php:4
+msgid "Manage Files"
+msgstr ""
+
+#: views/admin/settings.php:2
+msgid "Settings are currently Unavailable"
+msgstr ""
+
+#: views/admin/templates/image_preview.php:29
+msgid "Image Name or URL"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WP Smart Import"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/wp-smart-import/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "The most powerful solution for importing XML files to WordPress. Create Posts and Pages with content from any XML or CSV file."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Xylus Themes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://xylusthemes.com"
+msgstr ""
