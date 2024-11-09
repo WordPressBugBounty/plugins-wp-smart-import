@@ -14,14 +14,14 @@ if (!empty($pvalue['download_imgs'])) {
 }
 if( isset( $pvalue['set_featured_image'] ) ){
 	if ($pvalue['set_featured_image'] == 'yes') { // Set Featured Image
-		if ($pvalue['img_from'] == 'media-file' && !empty($images1)) {
+		if ( !empty( $pvalue['media_imgs'] ) && !empty($images1)) {
 			$arr = array( "\\" => "/" );
 			$image = strtr($images1[0] ,$arr);
 			$attachment_id = attachment_url_to_postid($image);
 			if ($attachment_id)
 				set_post_thumbnail($post_id, $attachment_id);
 
-		} elseif ($pvalue['img_from'] == 'download' && !empty($images2)) {
+		} elseif ( !empty( $pvalue['download_imgs'] ) && !empty($images2)) {
 			$image = $images2[0];
 			if(!empty($image) && wp_remote_retrieve_response_code(wp_remote_get($image)) == 200)
 			{

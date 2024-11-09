@@ -4,8 +4,8 @@ Donate link: https://xylusthemes.com/
 Tags: WordPress Importer, xml, csv, importer, wordpress csv import, wordpress xml import
 Requires at least: 4.0
 Requires PHP: 5.3
-Tested up to: 6.6
-Stable tag: 1.1.0
+Tested up to: 6.7
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,10 @@ The most powerful solution for importing any CSV and XML files to WordPress. Cre
 7. Manage Files
 
 == Changelog ==
+
+= 1.1.1 =
+* FIXED: Download Image Bug
+* IMPROVEMENTS: Support for WP 6.7
 
 = 1.1.0 =
 * IMPROVEMENTS: Enhanced protection for XML file processing vulnerabilities during upload and download.

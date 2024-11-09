@@ -22,6 +22,7 @@ if (!class_exists('wpSmartImportAdmin')) {
 
         function admin_init() {
             $this->register_setting();
+            $this->check_wsi_folder_exist();
         }
         
         function app_output_buffer() {
@@ -90,6 +91,21 @@ if (!class_exists('wpSmartImportAdmin')) {
                         'pages' => wpSmartImport::getVar('pages')
                     );
             wp_localize_script('wpsi-custom-ajax-js', 'path', $data);
+        }
+
+        public function check_wsi_folder_exist() {
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                require_once( ABSPATH . 'wp-admin/includes/file.php' );
+            }
+            global $wp_filesystem;
+            WP_Filesystem();
+        
+            $folder_name = 'wp_smart_import';
+            $upload_path = WP_CONTENT_DIR . '/uploads/' . $folder_name . '/';
+        
+            if ( ! $wp_filesystem->is_dir( $upload_path ) ) {
+                $wp_filesystem->mkdir( $upload_path, 0777 );
+            }
         }
     }
     new wpSmartImportAdmin;
