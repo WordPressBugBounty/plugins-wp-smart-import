@@ -56,9 +56,9 @@ if(!class_exists('wpSmartImportQuery')) {
 		
 		static public function retrieve_files() {
 			global $wpdb;
-		    $table = $wpdb->prefix."wpsi_files";
-		    $querystr = $wpdb->prepare( "SELECT * FROM %s", $table );
-		    $files = $wpdb->get_results($querystr, ARRAY_A);
+			$table = esc_sql( $wpdb->prefix . "wpsi_files" );
+			$querystr = $wpdb->prepare( "SELECT * FROM {$table}" );
+			$files = $wpdb->get_results( $querystr, ARRAY_A );
 		    return $files;
 		}
 
