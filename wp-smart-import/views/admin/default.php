@@ -11,9 +11,9 @@
 			<h1 class="page-title"><?php esc_attr_e( 'Import XML', 'wp-smart-import' ); ?></h1>
 		</div>
 		<div class="wpsi-body">
-			<?php $action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
+			<?php $action = isset( $_GET['action'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['action'] ) ) ) : '';
 				if( isset( $_GET['page'] ) ){
-					echo wpSmartImportView::load( sanitize_text_field( wp_unslash( $_GET['page'] ) ), $action );
+					echo wpSmartImportView::load( esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ), $action );
 				} ?>
 			<div id="ajax-wait"></div>
 		</div>

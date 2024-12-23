@@ -2,7 +2,7 @@
 if (!defined('ABSPATH')) { exit; } 
 $nonce = isset( $_SESSION['manage_files_nonce'] ) ? $_SESSION['manage_files_nonce'] : false;
 if ( $nonce && wp_verify_nonce( $nonce, 'manage_files_nonce' ) ) {
-	$ipage = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
+	$ipage = isset( $_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : '';
 	?>
 	<form method="post">
 		<input type="hidden" name="page" value="<?php echo esc_attr( $ipage ); ?>" /> 

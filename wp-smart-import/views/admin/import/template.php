@@ -10,9 +10,9 @@ if ( isset( $_REQUEST['_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_un
     if (isset($_POST) && !empty($_POST)) {
         $_POST['post_type'] = $session['post_type'];
 
-        $id          = isset( $_GET['id'] ) ? sanitize_text_field( wp_unslash( $_GET['id'] ) ) : '';
-        $unique_key  = isset( $_GET['unique_key'] ) ? sanitize_text_field( wp_unslash( $_GET['unique_key'] ) ) : '';
-        $wpsi_submit = isset( $_POST['wpsi_submit'] ) ? sanitize_text_field( wp_unslash( $_POST['wpsi_submit'] ) ) : '';
+        $id          = isset( $_GET['id'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['id'] ) ) ) : '';
+        $unique_key  = isset( $_GET['unique_key'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['unique_key'] ) ) ) : '';
+        $wpsi_submit = isset( $_POST['wpsi_submit'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_POST['wpsi_submit'] ) ) ) : '';
 
         if ($wpsiQuery->check_unique_key( $unique_key ) || !empty( $id ) ){
             $task = sanitize_text_field( $wpsi_submit ) == 'save_import' ? 'save' : 'save_run';

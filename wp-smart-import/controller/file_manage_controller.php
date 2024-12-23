@@ -36,7 +36,7 @@ if (!class_exists('wpsi_manage_file_controller')) {
             //Build row actions
             $nonce = wp_create_nonce('wpsi_nonce');
             $actions = array(
-                'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Delete</a>', !empty( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : 'page', 'delete', $item['id'], $nonce ),
+                'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Delete</a>', !empty( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : 'page', 'delete', $item['id'], $nonce ),
             );
             $upload_dir = wp_upload_dir();
             $url = $upload_dir['baseurl'].'/wp_smart_import/'.$item['file_path'];

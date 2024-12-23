@@ -16,8 +16,8 @@ if ( $nonce && wp_verify_nonce( $nonce, 'manage_import_nonce' ) ) {
             </div>
     <?php session_destroy(); 
             endif;
-            $action = isset($_GET['action']) ? sanitize_text_field(wp_unslash($_GET['action'])) : '';
-            $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : '';
+            $action = isset($_GET['action']) ? esc_attr( sanitize_text_field(wp_unslash($_GET['action'] ) ) ) : '';
+            $page = isset($_GET['page']) ? esc_attr( sanitize_text_field(wp_unslash($_GET['page'] ) ) ) : '';
             echo wpSmartImportView::load( $page, $action );
     ?>
         </div>

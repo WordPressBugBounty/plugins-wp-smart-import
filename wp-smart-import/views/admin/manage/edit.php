@@ -2,7 +2,7 @@
 if ( isset( $_REQUEST['_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash(  $_REQUEST['_nonce'] ) ), 'wpsi_nonce')) {
 	$data = array();
 	$wpsiQuery = new wpSmartImportQuery;
-	$id = isset($_GET['id']) ? sanitize_text_field(wp_unslash($_GET['id'])) : 0 ;
+	$id = isset($_GET['id']) ? esc_attr( sanitize_text_field(wp_unslash($_GET['id'] ) ) ) : 0 ;
 	$id = wpsi_helper::check_schar($id);
 	if ($id) {
 		$data = $wpsiQuery->wpsi_getRow('wpsi_imports', $id);

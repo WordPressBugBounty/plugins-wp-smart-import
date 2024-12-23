@@ -49,7 +49,7 @@ if (!class_exists('wpsi_manage_controller')) {
                     return $item[$column_name];
                 case 'action':
                     $nonce = wp_create_nonce('wpsi_nonce');
-                    $rpage = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
+                    $rpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : '';
                     return sprintf("<h4><a class='import-action' href='?page=%s&action=%s&id=%s&_nonce=%s'>Run Import</h4></a>", $rpage, 'update', $item['id'], $nonce );
                 case 'summary':
                     $last_activity = date("d M Y  h:i:s A", strtotime($item['last_activity']));
@@ -77,7 +77,7 @@ if (!class_exists('wpsi_manage_controller')) {
          **************************************************************************/
         function column_name($item) {
             //Build row actions
-            $cpage = isset( $_REQUEST['page'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) : '';
+            $cpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : '';
             $actions = array(
                 'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Edit Import</a>', $cpage, 'edit', $item['id'], wp_create_nonce( 'wpsi_nonce' )  ),
                 'delete'  => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Delete</a>', $cpage, 'delete', $item['id'], wp_create_nonce( 'wpsi_nonce' ) ),
