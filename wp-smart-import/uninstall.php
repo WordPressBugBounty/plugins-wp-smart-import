@@ -9,11 +9,9 @@ foreach ( $tables_to_drop as $table_name ) {
     // Construct the table name with prefix
     $table_name_with_prefix = $wpdb->prefix . 'wpsi_' . $table_name;
 
-    // Prepare the SQL query with a placeholder
-    $sql = $wpdb->prepare( "DROP TABLE IF EXISTS %s", $table_name_with_prefix );
-
-    // Execute the query
-    $wpdb->query( $sql );
+    // Prepare the SQL query with a placeholder and Execute the query
+    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+    $wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %s", $table_name_with_prefix ) );
 }
 
 // Delete options when plugin uninstall

@@ -8,6 +8,7 @@ if (!class_exists('wpsi_helper')) {
         }
 
 		static function __($str) {
+            // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText, WordPress.WP.I18n.NonSingularStringLiteralDomain
             return __($str, wpSmartImport::getVar('lang'));
         }
         
@@ -65,7 +66,7 @@ if (!class_exists('wpsi_helper')) {
                      self::remove_recursive($f->getRealPath());
                 }
             }
-            @rmdir($path);
+            @rmdir($path); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
         }
 
         /**

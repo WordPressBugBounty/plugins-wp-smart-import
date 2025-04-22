@@ -45,6 +45,7 @@ if (!empty($pdata['media_imgs']) || !empty($pdata['download_imgs'])):
             					<h2 class="block-title"><?php esc_attr_e( "Image Preview", 'wp-smart-import' ); ?></h2>
         						<div class="wpsi-img-thumb">
         						<?php foreach ($srcs as  $src) :
+                                        // phpcs:disable PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage
         								echo "<img src='". esc_url($src) ."'>";
         							endforeach; ?>
         						</div> 

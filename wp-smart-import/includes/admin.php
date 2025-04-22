@@ -51,6 +51,7 @@ if (!class_exists('wpSmartImportAdmin')) {
         }
 
         public function register_setting() {
+            // phpcs:ignore PluginCheck.CodeAnalysis.SettingSanitization.register_settingMissing
             register_setting('wp-smart-import-settings', 'wp-smart-import-settings');
         }
 
@@ -70,28 +71,43 @@ if (!class_exists('wpSmartImportAdmin')) {
         
         function admin_enqueue() {
             if (!is_admin()) return;
-            // loading WordPress Default jquery.js file
+        
             wp_enqueue_script('jquery');
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
             wp_enqueue_style('wpsi-admin-css', wpSmartImport::getVar('css', 'url') . 'style.css');
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion, WordPress.WP.EnqueuedResourceParameters.NotInFooter
             wp_enqueue_script('wpsi-custom-js', wpSmartImport::getVar('js', 'url') . 'custom.js');
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion, WordPress.WP.EnqueuedResourceParameters.NotInFooter
             wp_enqueue_script('wpsi-custom-ajax-js', wpSmartImport::getVar('js', 'url') . 'custom_ajax.js', array('jquery'));
-             
-             //Jquery UI js
+        
             wp_enqueue_script('jquery-ui-datepicker');
-            wp_enqueue_style('wpsi-jquery-ui-css', wpSmartImport::getVar('js', 'url').'jquery-ui-1.12.1/jquery-ui.min.css');
-            wp_enqueue_style('wpsi-toastr-css', wpSmartImport::getVar('js', 'url')."toastr-jquery/toastr.min.css");
-            wp_enqueue_script('wpsi-toastr-js', wpSmartImport::getVar('js', 'url')."toastr-jquery/toastr.min.js");
-
-            /* Use URL and nonce in JS file by using wp_localize_script() function
-                https://codex.wordpress.org/Function_Reference/wp_localize_script*/
-            wp_localize_script('wpsi-custom-ajax-js', 'wpsi_file_ajax', array( 'ajaxurl' =>admin_url('admin-ajax.php' ), 'nonce' => wp_create_nonce('wpsi_nonce') ) );
-            $data = array('pluginUrl' => wpSmartImport::getVar('home', 'url'),
-                        'upload_url' => admin_url('async-upload.php'),
-                        'admin_url' => admin_url('admin.php'),
-                        'pages' => wpSmartImport::getVar('pages')
-                    );
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+            wp_enqueue_style('wpsi-jquery-ui-css', wpSmartImport::getVar('js', 'url') . 'jquery-ui-1.12.1/jquery-ui.min.css');
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+            wp_enqueue_style('wpsi-toastr-css', wpSmartImport::getVar('js', 'url') . "toastr-jquery/toastr.min.css");
+        
+            // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion, WordPress.WP.EnqueuedResourceParameters.NotInFooter
+            wp_enqueue_script('wpsi-toastr-js', wpSmartImport::getVar('js', 'url') . "toastr-jquery/toastr.min.js");
+        
+            wp_localize_script('wpsi-custom-ajax-js', 'wpsi_file_ajax', array(
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('wpsi_nonce')
+            ));
+        
+            $data = array(
+                'pluginUrl' => wpSmartImport::getVar('home', 'url'),
+                'upload_url' => admin_url('async-upload.php'),
+                'admin_url' => admin_url('admin.php'),
+                'pages' => wpSmartImport::getVar('pages')
+            );
             wp_localize_script('wpsi-custom-ajax-js', 'path', $data);
         }
+        
 
         public function check_wsi_folder_exist() {
             if ( ! function_exists( 'WP_Filesystem' ) ) {

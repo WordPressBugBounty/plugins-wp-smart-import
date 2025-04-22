@@ -1,6 +1,6 @@
 <?php 
 if (!defined('ABSPATH')) { exit; } 
-$nonce = isset( $_SESSION['manage_files_nonce'] ) ? $_SESSION['manage_files_nonce'] : false;
+$nonce = isset( $_SESSION['manage_files_nonce'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_SESSION['manage_files_nonce'] ) ) ) : false;
 if ( $nonce && wp_verify_nonce( $nonce, 'manage_files_nonce' ) ) {
 	$ipage = isset( $_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : '';
 	?>

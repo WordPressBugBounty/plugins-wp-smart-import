@@ -50,5 +50,16 @@ if(!class_exists('wpSmartImportView')){
 			}
 			return '';
 		}
+
+		public static function check_valid_path() {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended 
+			$action = isset( $_GET['action'] ) ? esc_attr( sanitize_text_field(wp_unslash( $_GET['action'] ) ) ) : '';
+			if ( ! empty( $action ) && ! preg_match( '/^[a-zA-Z0-9_]+$/', $action ) ) {
+				$redirect_url = admin_url( 'admin.php?page=wpsi_notfound' );
+				wp_safe_redirect( $redirect_url, 308 );
+				exit;
+			}
+		}
+		
 	}
 }

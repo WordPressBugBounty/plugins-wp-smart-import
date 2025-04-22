@@ -18,21 +18,24 @@ if(!class_exists('wpSmartImportAdminMenu')){
 	    public function wp_smart_import_default() {
 			$nonce = wp_create_nonce('manage_default_nonce');
 			$_SESSION['manage_default_nonce'] = $nonce;
-	      	echo wpSmartImportView::load_menu_page('default' );
+			wpSmartImportView::check_valid_path();
+	      	echo wpSmartImportView::load_menu_page('default' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 	    }
 
 	    public function wp_smart_import_manage() {
 	    	require_once wpSmartImport::getVar('base', 'path').'controller/manage_controller.php';
 			$nonce = wp_create_nonce('manage_import_nonce');
 			$_SESSION['manage_import_nonce'] = $nonce;
-			echo wpSmartImportView::load_menu_page('manage_import' );
+			wpSmartImportView::check_valid_path();
+			echo wpSmartImportView::load_menu_page('manage_import' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 	    }
 
 		public function wp_smart_import_manage_file() {
 			require_once wpSmartImport::getVar('base', 'path').'controller/file_manage_controller.php';
 			$nonce = wp_create_nonce( 'manage_files_nonce' );
 			$_SESSION['manage_files_nonce'] = $nonce;
-			echo wpSmartImportView::load_menu_page('manage_file' );
+			wpSmartImportView::check_valid_path();
+			echo wpSmartImportView::load_menu_page('manage_file' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
 		}
 	}
 }

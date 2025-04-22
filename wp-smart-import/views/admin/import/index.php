@@ -11,20 +11,20 @@ $file_path     = isset( $session['file_path'] ) ? sanitize_text_field( wp_unslas
 				<div class="file-input-wrapper">
 					<label for="file-upload" class="file-upload-btn btn-file-input wpsi-button btn-grp" data-tab="file-upload">
 						<span class="dashicons dashicons-upload"></span>
-						<?php esc_html_e('Upload File'); ?>
+						<?php esc_html_e('Upload File', 'wp-smart-import'); ?>
 					</label>
 					<input id="file-upload" type="file" class="file-input" accept=".xml" />
 				</div>
 				<div class="file-input-wrapper">
 					<label class="file-upload-btn btn-file-input wpsi-button btn-grp" data-tab="download">
 						<span class="dashicons dashicons-download"></span> 
-						<?php esc_html_e('Download From URL'); ?>
+						<?php esc_html_e('Download From URL', 'wp-smart-import'); ?>
 					</label>
 				</div>
 				<div class="file-input-wrapper">
 					<label class="file-upload-btn btn-file-input wpsi-button btn-grp" data-tab="existing">
 						<span class="dashicons dashicons-paperclip"></span>
-						<?php esc_html_e('Select Existing File'); ?>
+						<?php esc_html_e('Select Existing File', 'wp-smart-import'); ?>
 					</label>
 				</div>
 			</div>
@@ -103,7 +103,7 @@ $file_path     = isset( $session['file_path'] ) ? sanitize_text_field( wp_unslas
 										$willUse = $willUse == 1 ? 'checked="checked"' : '';
 									?>
 									<input type="checkbox" name="wpsi_upload[willUse]" value="1" id="useFile" <?php echo esc_attr( $willUse ); ?> />
-									<?php esc_html_e('Use this file in Future'); ?> 
+									<?php esc_html_e('Use this file in Future', 'wp-smart-import'); ?> 
 								</label>
 							</p>
 						</div>
@@ -119,7 +119,7 @@ $file_path     = isset( $session['file_path'] ) ? sanitize_text_field( wp_unslas
 					<div class="upload-button-group">
 						<?php wp_nonce_field( 'wpsi_nonce', '_nonce' ); ?>
 						<button name="wpsi_submit" class="wpsi-button wpsi-button-big btn-grp btn-next" type="submit" value="upload">
-							<?php esc_html_e("Next Step 2 >>"); ?> 
+							<?php esc_html_e("Next Step 2 >>", 'wp-smart-import'); ?> 
 						</button>
 					</div>
 				</div>

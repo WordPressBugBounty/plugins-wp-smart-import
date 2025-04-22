@@ -1,5 +1,5 @@
 <?php 
-$nonce = isset( $_SESSION['manage_import_nonce'] ) ? $_SESSION['manage_import_nonce'] : false;
+$nonce = isset( $_SESSION['manage_import_nonce'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_SESSION['manage_import_nonce'] ) ) ) : false;
 if ( $nonce && wp_verify_nonce( $nonce, 'manage_import_nonce' ) ) {
     ?>
     <div class="wsi-wrap">
@@ -10,7 +10,7 @@ if ( $nonce && wp_verify_nonce( $nonce, 'manage_import_nonce' ) ) {
         <div class="wpsi-body">
     <?php   if(isset($_SESSION['res'])): ?>
             <div id="message" class="updated notice is-dismissible">
-                <p> <?php echo wp_kses_post( $_SESSION['res']['msg'] ); ?> </p>
+                <p> <?php echo isset(  $_SESSION['res']['msg'] ) ? wp_kses_post( $_SESSION['res']['msg'] ) : ''; ?> </p>
                 <button type="button" class="notice-dismiss"><span class="screen-reader-text">
                     <?php esc_attr_e( 'Dismiss this notice.', 'wp-smart-import'); ?> </span></button>
             </div>
@@ -18,6 +18,7 @@ if ( $nonce && wp_verify_nonce( $nonce, 'manage_import_nonce' ) ) {
             endif;
             $action = isset($_GET['action']) ? esc_attr( sanitize_text_field(wp_unslash($_GET['action'] ) ) ) : '';
             $page = isset($_GET['page']) ? esc_attr( sanitize_text_field(wp_unslash($_GET['page'] ) ) ) : '';
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo wpSmartImportView::load( $page, $action );
     ?>
         </div>

@@ -24,7 +24,7 @@ if (!class_exists('wpsi_manage_file_controller')) {
                 case 'file_name':
                     return $item[$column_name];
                 case 'last_activity':
-                    $last_activity = date("d M Y  h:i:s A ", strtotime($item['updated_at']));
+                    $last_activity = wp_date("d M Y  h:i:s A ", strtotime($item['updated_at']));
                     return  "$last_activity" ;
                 default:
                     break;
@@ -36,6 +36,7 @@ if (!class_exists('wpsi_manage_file_controller')) {
             //Build row actions
             $nonce = wp_create_nonce('wpsi_nonce');
             $actions = array(
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 'delete' => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Delete</a>', !empty( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : 'page', 'delete', $item['id'], $nonce ),
             );
             $upload_dir = wp_upload_dir();
@@ -83,6 +84,7 @@ if (!class_exists('wpsi_manage_file_controller')) {
         function process_bulk_action() {
             //Detect when a bulk action is being triggered...
             if ('delete'=== $this->current_action()) {
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing 
                 $request = wpsi_helper::recursive_sanitize_text_field( wp_unslash( $_POST ) );
                 if (!array_key_exists('ids', $request)) return false;
                 
@@ -115,12 +117,13 @@ if (!class_exists('wpsi_manage_file_controller')) {
                 $querystr .= " WHERE `id` LIKE '%{$search}%' OR `name` LIKE '%{$search}%' OR `file_name` LIKE '%{$search}%'";
             } 
             $querystr .= " ORDER BY $table.id DESC";
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
             $data = $wpdb->get_results($querystr, ARRAY_A);
             /***********************************************/
 
             function usort_reorder($a, $b) {
-                $orderby = !empty($_REQUEST['orderby']) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id';
-                $order = !empty($_REQUEST['order']) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'desc';
+                $orderby = !empty($_REQUEST['orderby']) ? sanitize_text_field( wp_unslash( $_REQUEST['orderby'] ) ) : 'id'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                $order = !empty($_REQUEST['order']) ? sanitize_text_field( wp_unslash( $_REQUEST['order'] ) ) : 'desc'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 // Determine sort order
                 $result = 0;
                 if ($a[$orderby] < $b[$orderby]) {

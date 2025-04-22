@@ -2,7 +2,10 @@
     <div class="wpsi-portlet-title">
         <div class="caption">
             <span class="caption-subject">
-                <?php esc_html_e(ucfirst($post_type).' Options'); ?>
+                <?php
+                    // translators: %s: Post type name, e.g. "Product", "Page", etc.
+                    printf( esc_attr__( '%s Options', 'wp-smart-import' ), esc_attr( ucfirst( $post_type ) ) ); 
+                ?>
             </span>
         </div>
     </div>

@@ -3,7 +3,7 @@
  * Plugin Name:       WP Smart Import
  * Plugin URI:        https://wordpress.org/plugins/wp-smart-import/
  * Description:       The most powerful solution for importing XML files to WordPress. Create Posts and Pages with content from any XML or CSV file.
- * Version:           1.1.3
+ * Version:           1.1.4
  * Author:            Xylus Themes
  * Author URI:        http://xylusthemes.com
  * License:           GPL-2.0+
@@ -80,7 +80,7 @@ if(!class_exists('wpSmartImport')) {
 	    
 	    private function define_constants() {
 			$arr = array();
-			$arr['version'] = '1.1.3';
+			$arr['version'] = '1.1.4';
 			$arr['unique'] = 'wp_smart_import';
 			$arr['plugin'] = __FILE__;
 			//paths
@@ -154,6 +154,7 @@ if(!class_exists('wpSmartImport')) {
                 }
             }
 		    if (!empty($import_id)) {
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 				$import = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}wpsi_imports WHERE id = %d", absint( $import_id ) ), ARRAY_A );
 			    return !empty($import) && isset($import['options']) ? maybe_unserialize($import['options']) : [];
 		    }

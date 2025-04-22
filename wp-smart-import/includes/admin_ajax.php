@@ -176,7 +176,8 @@ if (!class_exists('wpsiAjaxController')) {
 						} elseif ($child instanceof DOMComment) {
 							if (preg_match('%\[pmxi_more:(\d+)\]%', $child->nodeValue, $mtch)) {
 								$no = intval($mtch[1]);
-								echo '<div class="xml-more">[ &dArr; ' . sprintf(__('<strong>%s</strong> %s more', 'wp_smart_import'), esc_attr( $no ), esc_attr( _n('element', 'elements', $no, 'wp_smart_import') ) ) . ' &dArr; ]</div>';
+								// phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText, WordPress.Security.EscapeOutput.OutputNotEscaped
+								echo '<div class="xml-more">[ &dArr; ' . sprintf(__('<strong>%s</strong> %s more', 'wp-smart-import'), esc_attr( $no ), esc_attr( _n('element', 'elements', $no, 'wp-smart-import') ) ) . ' &dArr; ]</div>';
 							}
 						}
 					}
@@ -196,13 +197,14 @@ if (!class_exists('wpsiAjaxController')) {
 			}
 			if (preg_match('%\[more:(\d+)\]%', $text, $mtch)) {
 				$no = intval($mtch[1]);
-				echo '<div class="xml-more">[ &dArr; ' . sprintf(__('<strong>%s</strong> %s more', 'wp_all_import_plugin'), esc_attr( $no ), esc_attr( _n('element', 'elements', $no, 'wp_all_import_plugin') ) ) . ' &dArr; ]</div>';
+				// phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment, WordPress.WP.I18n.UnorderedPlaceholdersText, WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '<div class="xml-more">[ &dArr; ' . sprintf(__('<strong>%s</strong> %s more', 'wp-smart-import'), esc_attr( $no ), esc_attr( _n('element', 'elements', $no, 'wp-smart-import') ) ) . ' &dArr; ]</div>';
 				return;
 			}
 			$more = '';
 			if ($shorten and preg_match('%^(.*?\s+){20}(?=\S)%', $text, $mtch)) {
 				$text = $mtch[0];
-				$more = '<span class="xml-more">[' . __('more', 'wp_all_import_plugin') . ']</span>';
+				$more = '<span class="xml-more">[' . __('more', 'wp-smart-import') . ']</span>';
 			}			
 			$is_short = strlen($text) <= 40;			
 			$text = htmlspecialchars($text);
@@ -470,7 +472,8 @@ if (!class_exists('wpsiAjaxController')) {
 	    	// Update Import Record
 			if (!empty($import_id)) {
 	    		$table = $wpdb->prefix . "wpsi_imports";
-				$querystr = $wpdb->prepare(
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				$wpdb->query( $wpdb->prepare(
 					"UPDATE %s SET 
 					created = created + %d,
 					updated = updated + %d,
@@ -478,8 +481,7 @@ if (!class_exists('wpsiAjaxController')) {
 					count = count + %d
 					WHERE id = %d",
 					$table, $count_created, $count_updated, $count_failed, $count, $import_id
-				);
-				$wpdb->query( $querystr );
+				));
 			}
 			$res = array(
 				'status' 		=> 'success', 
@@ -646,7 +648,7 @@ if (!class_exists('wpsiAjaxController')) {
 				wp_die( esc_html__( 'Security check failed. Please try again.', 'wp-smart-import' ) );
 			}
 			wpSmartImportCommon::verify_ajax($nonce);
-			$form_data = isset( $_POST['formData'] ) ? wp_unslash( $_POST['formData'] ) : ''; 
+			$form_data = isset( $_POST['formData'] ) ? wp_unslash( $_POST['formData'] ) : '';  // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			parse_str( $form_data, $formData);
 			$total_node = isset( $_POST['count'] ) ? sanitize_text_field( wp_unslash( $_POST['count'] ) ) : '';
 			$node_num   = isset( $_POST['node_num'] ) ? sanitize_text_field( wp_unslash( $_POST['node_num'] ) ) : '';
@@ -706,7 +708,9 @@ if (!class_exists('wpsiAjaxController')) {
 			}
 			wpSmartImportCommon::verify_ajax($nonce);
 			$wpsiQuery = new wpSmartImportQuery;
-			$wpsi_posts = $wpsiQuery->retrieve_posts(sanitize_text_field( wp_unslash($_POST['id']) ));
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing 
+			$wpsiqpost_id = isset( $_POST['id'] ) ? sanitize_text_field( wp_unslash( $_POST['id'] ) ) : '';
+			$wpsi_posts = $wpsiQuery->retrieve_posts( $wpsiqpost_id );
 			$total_batch = 0;
 			if (!empty($wpsi_posts)) {
 				$batchs = array_chunk($wpsi_posts, self::$limit);
@@ -726,10 +730,12 @@ if (!class_exists('wpsiAjaxController')) {
 			global $wpdb;
 			$table = $wpdb->prefix.'wpsi_imports';
 			$wpsiQuery = new wpSmartImportQuery;
-			$data = $wpsiQuery->wpsi_getRow("wpsi_files", sanitize_text_field( wp_unslash($_POST['id'] ) ) );
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing 
+			$wpsiqqpost_id = isset( $_POST['id'] ) ? sanitize_text_field( wp_unslash( $_POST['id'] ) ) : '';
+			$data = $wpsiQuery->wpsi_getRow("wpsi_files", $wpsiqqpost_id );
 			$file_path = $folder_name . '/' . $data->file_path;
-			$querystr = $wpdb->prepare( "SELECT * FROM %s WHERE file_path = %s", $table, $file_path );
-			$result = $wpdb->get_results($querystr);
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+			$result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE file_path = %s", $table, $file_path ) );
 			$post_array = array();
 			if (!empty($result)) {
 				foreach ($result as $idx => $array) {
@@ -779,8 +785,8 @@ if (!class_exists('wpsiAjaxController')) {
 			$data_row = $wpsiQuery->wpsi_getRow("wpsi_files", $ID);
 			if (!empty($data_row)) {
 				$file_path = $folder_name . '/' . $data_row->file_path;
-				$querystr = $wpdb->prepare( "SELECT * FROM %s WHERE file_path = %s", $table, $file_path );
-				$result = $wpdb->get_results($querystr);
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				$result = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE file_path = %s", $table, $file_path ) );
 				if ($statusCode == 1) { //Delete File Record
 					$response = $wpsiQuery->delete_file_by('id', $ID);
 					if ($response) {

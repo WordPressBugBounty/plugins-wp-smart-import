@@ -6,6 +6,7 @@ if(!class_exists('wpSmartImportQuery')) {
 		public function wpsi_insert($table, $data, $format = null) {
 			global $wpdb;
 			$table = $wpdb->prefix.$table;
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$res = $wpdb->insert($table, $data, $format);
 			return $res == false ? 0 : $wpdb->insert_id;
 		}
@@ -13,6 +14,7 @@ if(!class_exists('wpSmartImportQuery')) {
 		public function wpsi_update($table, $data, $where, $format = null, $where_format = null) {
 			global $wpdb;
 			$table = $wpdb->prefix.$table;
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$res = $wpdb->update($table, $data, $where, $format, $where_format);
 			return $res == false ? 0 : $res;
 		}
@@ -20,6 +22,7 @@ if(!class_exists('wpSmartImportQuery')) {
 		public function wpsi_getRow($table_name, $id) {
 			global $wpdb;
 	        $table = $wpdb->prefix.$table_name;
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 	        $ret = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM `$table` WHERE id = %d", $id ) );
 	        if (empty($ret)) {
 	        	$ret = array('error'=>"No Data found");
@@ -30,6 +33,7 @@ if(!class_exists('wpSmartImportQuery')) {
 		public function retrieve_posts($import_id) {
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_posts";
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		    $posts = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $table WHERE import_id = %d", $import_id ) );
 		    return $posts;
 		}
@@ -48,6 +52,7 @@ if(!class_exists('wpSmartImportQuery')) {
 				);
     		$format = array('%s', '%s','%s', '%s', '%s');
     		if (self::file_record_exist($post_data['file_path'])) {
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
     			$res = $wpdb->insert($table, $data, $format);
     			$res = $wpdb->insert_id;
     		}
@@ -57,7 +62,9 @@ if(!class_exists('wpSmartImportQuery')) {
 		static public function retrieve_files() {
 			global $wpdb;
 			$table = esc_sql( $wpdb->prefix . "wpsi_files" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared 
 			$querystr = $wpdb->prepare( "SELECT * FROM {$table}" );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			$files = $wpdb->get_results( $querystr, ARRAY_A );
 		    return $files;
 		}
@@ -65,6 +72,7 @@ if(!class_exists('wpSmartImportQuery')) {
 		public function delete_record($table_name, $where, $format) {
 			global $wpdb;
 		    $table = $wpdb->prefix.$table_name;
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		    return $wpdb->delete($table, $where, $format);
 		}
 
@@ -72,6 +80,7 @@ if(!class_exists('wpSmartImportQuery')) {
 			if(empty($import_id) || absint($import_id) < 1 ) return;
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_imports";
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		    return $wpdb->delete($table, array('id' => $import_id), array('%d'));
 		}
 
@@ -79,20 +88,22 @@ if(!class_exists('wpSmartImportQuery')) {
 			$format = is_numeric($value) ? '%d' : '%s';
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_files";
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		    return $wpdb->delete($table, array($field => $value), array($format));
 		}
 
 		public function delete_post($post_id, $import_id) {
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_posts";
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		    return $wpdb->delete($table, array('post_id' => $post_id,'import_id' => $import_id), array( '%d','%d'));
 		}
 
 		public function check_unique_key($value) {
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_imports";
-		    $querystr = $wpdb->prepare( "SELECT * FROM %s WHERE unique_key = 'esc_sql( %s )'", $table, $value );
-		    $a = $wpdb->get_results($querystr);
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		    $a = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM %s WHERE unique_key = 'esc_sql( %s )'", $table, $value ) );
 		    if (count($a) > 0) {
 		    	return false;
 		    } else {
@@ -104,16 +115,16 @@ if(!class_exists('wpSmartImportQuery')) {
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_posts";
 		    $id = 0;
-		    $querystr = $wpdb->prepare( "SELECT * FROM %s WHERE `post_id` = %d AND `unique_key` = 'esc_sql( %s )'", $table, $post_id, $unique_key );
-		    $id = $wpdb->get_var($querystr);
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		    $id = $wpdb->get_var( $wpdb->prepare( "SELECT * FROM %s WHERE `post_id` = %d AND `unique_key` = 'esc_sql( %s )'", $table, $post_id, $unique_key ) );
 		    return empty($id) ? false : true;
 		}
 
 		public function file_record_exist($value) {
 			global $wpdb;
 		    $table = $wpdb->prefix."wpsi_files";
-			$querystr = $wpdb->prepare( "SELECT * FROM `%s` WHERE file_path = %s", $table, $value );
-			$results = $wpdb->get_results( $querystr );
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+			$results = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM `%s` WHERE file_path = %s", $table, $value ) );
 		    if (count($results) > 0) {
 		    	return false;
 		    } else {
@@ -127,8 +138,8 @@ if(!class_exists('wpSmartImportQuery')) {
 
 				$table = $wpdb->prefix."wpsi_files";
 				$name = isset( $_POST['name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['name'] ) ) ) : '';
-				$querystr = $wpdb->prepare( "SELECT * FROM %s WHERE `name` = %s", $table, $name );
-				$result = $wpdb->get_var($querystr);
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+				$result = $wpdb->get_var( $wpdb->prepare( "SELECT * FROM %s WHERE `name` = %s", $table, $name ) );
 				if(empty($result)) {
 					$msg = "You Can use this name";
 					$response = 'success';

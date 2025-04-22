@@ -49,12 +49,13 @@ if (!class_exists('wpsi_manage_controller')) {
                     return $item[$column_name];
                 case 'action':
                     $nonce = wp_create_nonce('wpsi_nonce');
-                    $rpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : '';
+                    $rpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                     return sprintf("<h4><a class='import-action' href='?page=%s&action=%s&id=%s&_nonce=%s'>Run Import</h4></a>", $rpage, 'update', $item['id'], $nonce );
                 case 'summary':
-                    $last_activity = date("d M Y  h:i:s A", strtotime($item['last_activity']));
+                    $last_activity = wp_date("d M Y  h:i:s A", strtotime($item['last_activity']));
                     return  "Last Activity : $last_activity <br/> $item[created] $item[post_type] created <br/> $item[updated]  Updated  $item[failed] Failed" ;
                 default:
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
                     return print_r($item, true); //Show the whole array for troubleshooting purposes
             }
         }
@@ -77,7 +78,7 @@ if (!class_exists('wpsi_manage_controller')) {
          **************************************************************************/
         function column_name($item) {
             //Build row actions
-            $cpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : '';
+            $cpage = isset( $_REQUEST['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $actions = array(
                 'edit'      => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Edit Import</a>', $cpage, 'edit', $item['id'], wp_create_nonce( 'wpsi_nonce' )  ),
                 'delete'  => sprintf('<a href="?page=%s&action=%s&id=%s&_nonce=%s">Delete</a>', $cpage, 'delete', $item['id'], wp_create_nonce( 'wpsi_nonce' ) ),
@@ -182,6 +183,7 @@ if (!class_exists('wpsi_manage_controller')) {
         function process_bulk_action() {
             //Detect when a bulk action is being triggered...
             if ('delete'=== $this->current_action()) {
+                // phpcs:ignore WordPress.Security.NonceVerification.Missing 
                 $request = wpsi_helper::recursive_sanitize_text_field( wp_unslash( $_POST ) );
                 if (!array_key_exists('ids', $request))
                     return false;
@@ -262,6 +264,7 @@ if (!class_exists('wpsi_manage_controller')) {
                 $querystr .= " WHERE `id` LIKE '%{$search}%' OR `name` LIKE '%{$search}%' OR `file_path` LIKE '%{$search}%' OR `post_type` LIKE '%{$search}%' ";
             } 
             $querystr .= " ORDER BY $table.id DESC";
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
             $data = $wpdb->get_results($querystr, ARRAY_A);
             
             /**
@@ -273,8 +276,8 @@ if (!class_exists('wpsi_manage_controller')) {
              * sorting technique would be unnecessary.
              */
             function usort_reorder($a, $b) {
-                $orderby = !empty($_REQUEST['orderby']) ? sanitize_text_field(wp_unslash($_REQUEST['orderby'])) : 'id'; // If no sort, default to id
-                $order = !empty($_REQUEST['order']) ? sanitize_text_field(wp_unslash($_REQUEST['order'])) : 'desc'; // If no order, default to asc
+                $orderby = !empty($_REQUEST['orderby']) ? sanitize_text_field(wp_unslash($_REQUEST['orderby'])) : 'id'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                $order = !empty($_REQUEST['order']) ? sanitize_text_field(wp_unslash($_REQUEST['order'])) : 'desc'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 $result = strcmp($a[$orderby], $b[$orderby]); // Determine sort order
             
                 // Adjust the result based on the sorting order

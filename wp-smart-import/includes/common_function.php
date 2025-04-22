@@ -230,8 +230,8 @@ if (!class_exists('wpSmartImportCommon')){
 		public function get_random_dateTime($startDate, $endDate) {
 			$startDate = strtolower(trim($startDate)); 
 			$endDat = strtolower(trim($endDate));
-		    $randomTime = mt_rand(strtotime($startDate), strtotime($endDate));
-		    return date('Y-m-d H:i:s', $randomTime);
+		    $randomTime = mt_rand(strtotime($startDate), strtotime($endDate)); // phpcs:ignore WordPress.WP.AlternativeFunctions.rand_mt_rand
+		    return wp_date('Y-m-d H:i:s', $randomTime);
 		}
 	}
 }

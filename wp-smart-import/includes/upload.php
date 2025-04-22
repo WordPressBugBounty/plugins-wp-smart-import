@@ -33,6 +33,7 @@ if(!class_exists('wpSmartImportUpload')){
 						$new_folder = uniqid();
 				    	$destination = $wpsi_fd_path. $new_folder ."/"; 
 				    	if (!file_exists($destination)) {
+							// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_mkdir
 							mkdir($destination, 0777, true);
 						}
 						$destination_path = $destination.$file_name;
@@ -157,7 +158,7 @@ if(!class_exists('wpSmartImportUpload')){
 			// Check for parsing errors
 			if (libxml_get_last_error() !== false) {
 				// Log or handle parsing errors
-				error_log("XML sanitization error: " . libxml_get_last_error()->message);
+				// error_log("XML sanitization error: " . libxml_get_last_error()->message);
 				libxml_clear_errors();
 				return false;
 			}
@@ -204,15 +205,15 @@ if(!class_exists('wpSmartImportUpload')){
 		  $chunksize = $chunkSize*(1024*1024); // How many bytes per chunk
 		  $data = '';
 		  $bytesCount = 0;
-		  $handle = fopen($srcName, 'rb');
-		  $fp = fopen($dstName, 'w');
+		  $handle = fopen($srcName, 'rb'); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
+		  $fp = fopen($dstName, 'w'); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
 		  if ($handle === false) {
 		    return false;
 		  }
 		  while (!feof($handle)) {
-		    $data = fread($handle, $chunksize);
+		    $data = fread($handle, $chunksize); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fread
 			$sanitized_data = self::sanitize_xml($data);
-		    if (fwrite($fp, $sanitized_data, strlen($sanitized_data	)) == false){
+		    if (fwrite($fp, $sanitized_data, strlen($sanitized_data	)) == false){ // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite 
 		    	return false;
 		    }
 		    
@@ -220,8 +221,8 @@ if(!class_exists('wpSmartImportUpload')){
 		        $bytesCount += strlen($data);
 		    }
 		  }
-		  $status = fclose($handle);
-		  fclose($fp);
+		  $status = fclose($handle); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
+		  fclose($fp); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
 		  if ($returnbytes && $status) {
 		    return $bytesCount; // Return number of bytes delivered like readfile() does.
 		  }

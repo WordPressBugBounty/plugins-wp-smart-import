@@ -1,5 +1,5 @@
 <?php 
-$nonce = isset( $_SESSION['manage_import_nonce'] ) ? $_SESSION['manage_import_nonce'] : false;
+$nonce = isset( $_SESSION['manage_import_nonce'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_SESSION['manage_import_nonce'] ) ) ) : false;
 if ( $nonce && wp_verify_nonce( $nonce, 'manage_import_nonce' ) ) {
 	$ipage = isset( $_GET['page'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) : '';
 	?>

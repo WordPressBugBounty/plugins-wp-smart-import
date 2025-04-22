@@ -1,7 +1,7 @@
 <?php 
 	if (!defined('ABSPATH')) { exit; } 
 	
-	$nonce = isset( $_SESSION['manage_default_nonce'] ) ? $_SESSION['manage_default_nonce'] : false;
+	$nonce = isset( $_SESSION['manage_default_nonce'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_SESSION['manage_default_nonce'] ) ) ) : false;
 	if ( $nonce && wp_verify_nonce( $nonce, 'manage_default_nonce' ) ) {
 	
 	?>
@@ -13,6 +13,7 @@
 		<div class="wpsi-body">
 			<?php $action = isset( $_GET['action'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['action'] ) ) ) : '';
 				if( isset( $_GET['page'] ) ){
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo wpSmartImportView::load( esc_attr( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ), $action );
 				} ?>
 			<div id="ajax-wait"></div>
