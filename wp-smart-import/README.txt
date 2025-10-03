@@ -5,7 +5,7 @@ Tags: WordPress Importer, xml, csv, importer, wordpress csv import, wordpress xm
 Requires at least: 4.0
 Requires PHP: 5.3
 Tested up to: 6.8
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -58,6 +58,9 @@ The most powerful solution for importing any CSV and XML files to WordPress. Cre
 7. Manage Files
 
 == Changelog ==
+
+= 1.1.5 =
+* FIXED: Conflict with WooCommerce admin classes resolved.
 
 = 1.1.4 =
 * IMPROVEMENTS: Support for WP 6.8

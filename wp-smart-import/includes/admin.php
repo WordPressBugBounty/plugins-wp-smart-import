@@ -29,9 +29,11 @@ if (!class_exists('wpSmartImportAdmin')) {
             if (is_admin()) {
                 add_filter( 'admin_body_class', function($classes) {
                     $screen = get_current_screen();
-                    if (preg_match('/wp_smart_import/i', $screen->id)) {
-                        return  $classes .= ' wpsmartimport-plugin ';
+                    $classes = is_string($classes) ? $classes : '';
+                    if ( $screen && preg_match( '/wp_smart_import/i', $screen->id ) ) {
+                        $classes .= ' wpsmartimport-plugin';
                     }
+                    return $classes;
                 });
             }
             ob_start();
